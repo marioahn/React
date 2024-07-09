@@ -26,19 +26,19 @@ function Detail(props){
       const timer = setTimeout(() => {
         setAlert2(false);
       }, 2000);
-      return () => clearTimeout(timer); // 컴포넌트가 언마운트될 때 타이머를 정리합니다.
+      return () => clearTimeout(timer); 
     }
   }, [count]);
 
   // 3)잘못된 상품페이지면 404페이지로 ㄱㄱ
   useEffect(() => {
     if (!찾은상품) {
-      navigate('*'); // 404 페이지로 리디렉션
+      navigate('*'); 
     }
   }, [찾은상품, navigate]);
 
   if (!찾은상품) {
-    return null; // 리디렉션 중일 때는 아무것도 렌더링하지 않음
+    return null; 
   }
 
   return (
@@ -75,15 +75,27 @@ function Detail(props){
         </Nav.Item>
     </Nav>
     <TabContent 탭={탭} />
-    {/* <div>내용0</div>
-    <div>내용1</div>
-    <div>내용2</div>  */}
   </div>  
   )
 };
 
-function TabContent(props){
-  return [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][props.탭]
+function TabContent({탭}){
+  
+  let [fade, setFade] = useState('');
+
+  useEffect(() => {
+    let a = setTimeout(() => { setFade('end') }, 100)
+    return () => {
+      clearTimeout(a)
+      setFade('')
+    }
+  }, [탭])
+
+  return (
+    <div className={'start ' + fade}>
+      { [ <div>내용0</div>, <div>내용1</div>, <div>내용2</div> ][탭] }
+    </div>
+  )
 }
 
 

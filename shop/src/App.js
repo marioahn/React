@@ -1,15 +1,19 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { Container, Nav, Navbar, Row } from 'react-bootstrap';
 import { Outlet, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import data from './data.js';
 import NotFound from './routes/404error.js';
+import Cart from './routes/Cart.js';
 import Detail from './routes/Detail.js';
+
+export let Context1 = createContext()
 
 function App() {
 
   let [shoes, setShoes] = useState(data)
+  let [재고] = useState([10, 11, 12]);
   let navigate = useNavigate();
 
   return (
@@ -19,9 +23,9 @@ function App() {
           <Navbar.Brand href="#home">MegiShop</Navbar.Brand>
           <Nav className="me-auto">
             <button onClick={()=>{ navigate('/') }}>Home</button>
-            <button onClick={()=>{ navigate('/detail') }}>Detail</button>
+            <button onClick={()=>{ navigate('/detail/1') }}>Detail</button>
+            <button onClick={()=>{ navigate('/cart') }}>장바구니</button>
             <button onClick={()=>{ navigate(-1) }}>navigate(-1)는 뒤로가기!</button>
-            {/* <Link to="/detail">상세페이지</Link> */}
           </Nav>
         </Container>
       </Navbar>
@@ -51,12 +55,10 @@ function App() {
         </>
         }/>
         
-        <Route path="/detail/:id" element={<Detail shoes={shoes}/>} />
-
-        <Route path="/about" element={<About />}>
-          <Route path="member" element={<div>멤버임~</div>} />
-          <Route path="location" element={<div>위치정보임~</div>} />
-        </Route>
+        <Route path="/detail/:id" element={
+            <Detail shoes={shoes}/>
+          } />
+        <Route path="/cart" element={ <Cart/> } />
         
         <Route path="*" element={<NotFound />} />
       </Routes>
