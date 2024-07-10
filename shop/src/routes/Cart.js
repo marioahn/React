@@ -1,6 +1,6 @@
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeName, plusAge2 } from '../store/storeSlice.js';
+import { addCount, plusAge2 } from '../store/storeSlice.js';
 
 function Cart() {
 
@@ -25,13 +25,14 @@ function Cart() {
           {
             state.cart.map((a, i)=>
               <tr key={i}>
-                <td>1</td>
+                <td>{state.cart[i].id}</td>
                 <td>{state.cart[i].name}</td>
                 <td>{state.cart[i].count}</td>
                 <td>안녕</td>
                 <td>
                   <button onClick={() => {
-                    dispatch(changeName())
+                    // dispatch(addCount(i)) 이거보다 아래가 더 정확!!!
+                    dispatch(addCount(state.cart[i].id))
                   }}>+</button>
                 </td>
               </tr>

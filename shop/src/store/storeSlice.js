@@ -16,7 +16,7 @@ let user = createSlice({
     }
   }
 })
-  // 이것도 같이 옮기기!
+
 export let { changeName, plusAge, plusAge2 } = user.actions
 
 // 재고
@@ -31,8 +31,22 @@ let cart = createSlice({
   initialState : [
     {id : 0, name : 'White and Black', count : 2},
     {id : 2, name : 'Grey Yordan', count : 1}
-  ]
+  ],
+  reducers: {
+    addCount(state, action) {
+      // e는 Cart state의 하나하나 요소(initialState에 있는)
+      let id = state.findIndex((e) => { return e.id === action.payload })
+      state[id].count++
+    },
+    addItem(state, action) {
+      // state.push({id: 1, name: 'Red Knit', count: 1}) <- 예시
+      state.push(action.payload)
+    }
+  }
 })
+// addCount(0) -> 0번 id상품의 재고(cnt)++!
+export let { addCount, addItem } = cart.actions
+
 
 export { cart, stock, user }
 

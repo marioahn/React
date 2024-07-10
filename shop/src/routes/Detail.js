@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Nav } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
+import { addItem } from '../store/storeSlice';
 
 function Detail(props){
 
@@ -11,6 +13,7 @@ function Detail(props){
   let [alert2, setAlert2] = useState(true);
   let [num, setNum] = useState('');
   let [탭, 탭변경] = useState(0);
+  let dispatch = useDispatch();
 
   // 1)input태그에 잘못된 숫자입력되면 경고메세지
   useEffect(() => {
@@ -59,7 +62,9 @@ function Detail(props){
           <h4 className="pt-5">{찾은상품.title}</h4>
           <p>{찾은상품.content}</p>
           <p>{찾은상품.price}원</p>
-          <button className="btn btn-danger">주문하기</button> 
+          <button className="btn btn-danger" onClick={() => {
+            dispatch(addItem({id: 3, name: 'Red Knit', count:1}))
+          }}>주문하기</button> 
         </div>
       </div>
 
