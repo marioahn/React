@@ -1,22 +1,23 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 // 유저
 let user = createSlice({
   name: 'user',
   initialState: {name: 'kim', age: 20},
   reducers: { 
-    changeName(state) { // 변수는 기존 state를 뜻함ㅇㅇ.
+    changeName(state) {
       return {name: 'park', age: 20}
-      // state.name = 'park' // return 대신에 이렇게 직접 수정해도 봐줌ㅇㅇ!
     },
     plusAge(state) {
       state.age += 1
+    },
+    plusAge2(state, a) {
+      state.age += a.payload
     }
   }
 })
-
-export let { changeName, plusAge } = user.actions 
-
+  // 이것도 같이 옮기기!
+export let { changeName, plusAge, plusAge2 } = user.actions
 
 // 재고
 let stock = createSlice({ 
@@ -33,10 +34,5 @@ let cart = createSlice({
   ]
 })
 
-export default configureStore({
-  reducer: {
-    user: user.reducer,
-    stock: stock.reducer,
-    cart: cart.reducer
-  }
-})
+export { cart, stock, user }
+

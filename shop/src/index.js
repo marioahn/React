@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom'; // 참고로 이렇게 경로�
 import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import store from './store.js';
+import store from './store/store.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
