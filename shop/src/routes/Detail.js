@@ -6,6 +6,14 @@ import { addItem } from '../store/storeSlice';
 
 function Detail(props){
 
+  useEffect(() => {
+    // 새로고침시, 초기화 방지! wow~
+    let watched = localStorage.getItem('watched');
+    if (!watched) {
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+  }, [])
+
   let { id } = useParams();
   let 찾은상품 = props.shoes.find((x) => x.id == id );
   let navigate = useNavigate();
@@ -14,6 +22,16 @@ function Detail(props){
   let [num, setNum] = useState('');
   let [탭, 탭변경] = useState(0);
   let dispatch = useDispatch();
+
+  // 4)최근 본 제품 기록 추가
+  useEffect(() => { 
+    let 꺼낸거 = localStorage.getItem('watched')
+    꺼낸거 = JSON.parse(꺼낸거)
+    꺼낸거.push(찾은상품.id)
+    console.log(꺼낸거)
+    꺼낸거 = Array.from(new Set(꺼낸거))
+    localStorage.setItem('watched', JSON.stringify(꺼낸거))
+  }, []) 
 
   // 1)input태그에 잘못된 숫자입력되면 경고메세지
   useEffect(() => {
