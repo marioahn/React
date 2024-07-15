@@ -10,12 +10,21 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'prettier'],
   rules: {
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+        semi: true,
+      },
+    ],
+    'no-unused-vars': 'off', // 실제 사용x변수면 오류나는거 off
+    'react/prop-types': 'off', // react더 안전하게 사용하는 옵션off -> 실습 후에 풀기 ㅇㅇ
   },
-}
+};
